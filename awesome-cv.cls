@@ -1,29 +1,10 @@
 %% Start of file `awesome-cv.cls'.
-% Awesome CV Class File
-%
-% This class has been downloaded from:
-% https://github.com/posquit0/Awesome-CV
-%
-% Author:
-% Claud D. Park <posquit0.bj@gmail.com>
-% http://www.posquit0.com
-%
-% Notes:
-% 1) This class file defines the structure and layout of the template file (cv.tex, resume.tex).
-% 2) It has been written in such a way that under most circumstances you
-% should not need to edit it.
-%
-% Class license:
-% LPPL v1.3c (http://www.latex-project.org/lppl)
-%
-
 
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
 \ProvidesClass{awesome-cv}[2017/02/05 v1.6.1 Awesome Curriculum Vitae Class]
 \NeedsTeXFormat{LaTeX2e}
-
 
 %-------------------------------------------------------------------------------
 %                Class options
@@ -32,9 +13,11 @@
 % we need \paperwidth, \paperheight and \@ptsize to be defined before loading
 % geometry and fancyhdr)
 %-------------------------------------------------------------------------------
+
 % Options for draft or final
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
+
 % Inherit options of article
 \DeclareOption*{%
   \PassOptionsToClass{\CurrentOption}{article}
@@ -42,19 +25,18 @@
 \ProcessOptions\relax
 \LoadClass{article}
 
-
 %-------------------------------------------------------------------------------
 %                3rd party packages
 %-------------------------------------------------------------------------------
 % Needed to make fixed length table
 \RequirePackage{array}
 % Needed to handle list environment
-\RequirePackage{enumitem}
+\RequirePackage[inline]{enumitem}
 % Needed to handle text alignment
 \RequirePackage{ragged2e}
 % Needed to configure page layout
 \RequirePackage{geometry}
-% Needed to make header & footer effeciently
+% Needed to make header & footer efficiently
 \RequirePackage{fancyhdr}
 % Needed to manage colors
 \RequirePackage{xcolor}
@@ -73,14 +55,13 @@
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
-% (https://github.com/posquit0/latex-fontawesome)
 \RequirePackage{fontawesome}
 \RequirePackage[default,opentype]{sourcesanspro}
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
-% Needed to deal a paragraphs
+% Needed to deal with paragraphs
 \RequirePackage{parskip}
-% Needed to deal hyperlink
+% Needed to deal with hyperlinks
 \RequirePackage[hidelinks,unicode]{hyperref}
 \hypersetup{%
   pdftitle={},
@@ -88,14 +69,39 @@
   pdfsubject={},
   pdfkeywords={}
 }
+% Needed to print the formatted bibliography from .bib file
+\RequirePackage[
+	style=authoryear,
+	sorting=ydnt,
+	maxnames=100,
+	isbn=false,
+	doi=false,
+	url=false,
+    backend=biber
+]{biblatex}
 
+
+% Define some custom bibliography filters
+\defbibfilter{publications}{
+  type=article or
+  type=thesis or
+  type=incollection
+}
+
+% Needed to generate QR code
+\RequirePackage{qrcode}
+
+% For making colored framed boxes inline
+\RequirePackage{efbox}
+% For making oval boxes around skills (alternate to above)
+\usepackage{fancybox}
 
 %-------------------------------------------------------------------------------
 %                Configuration for directory locations
 %-------------------------------------------------------------------------------
 % Configure a directory location for fonts(default: 'fonts/')
-\newcommand*{\fontdir}[1][fonts/]{\def\@fontdir{#1}}
-\fontdir
+%\newcommand*{\fontdir}[1][fonts/]{\def\@fontdir{#1}}
+%\fontdir
 
 
 %-------------------------------------------------------------------------------
@@ -103,7 +109,7 @@
 %-------------------------------------------------------------------------------
 %% Page Layout
 % Configure page margins with geometry
-\geometry{left=2.0cm, top=1.5cm, right=2.0cm, bottom=2.0cm, footskip=.5cm}
+\geometry{left=48pt, top=24pt, right=36pt, bottom=24pt, footskip=12pt}
 
 %% Header & Footer
 % Set offset to each header and footer
@@ -136,6 +142,12 @@
 \colorlet{text}{darkgray}
 \colorlet{graytext}{gray}
 \colorlet{lighttext}{lightgray}
+% Logo colors
+\definecolor{github-blackish}{HTML}{171516}
+\definecolor{linkedin-blue}{HTML}{0077B5}
+\definecolor{quora-red}{HTML}{B92B27}
+\definecolor{skype-blue}{HTML}{00AFF0}
+\definecolor{brown-paper}{HTML}{B29772}
 % Awesome colors
 \definecolor{awesome-emerald}{HTML}{00A388}
 \definecolor{awesome-skyblue}{HTML}{0395DE}
@@ -145,7 +157,12 @@
 \definecolor{awesome-nephritis}{HTML}{27AE60}
 \definecolor{awesome-concrete}{HTML}{95A5A6}
 \definecolor{awesome-darknight}{HTML}{131A28}
-\colorlet{awesome}{awesome-red}
+\colorlet{awesome}{awesome-skyblue}
+
+% My Colors
+\definecolor{manila-file-folder}{HTML}{F8F5E1}
+\definecolor{sidecolor}{HTML}{E7E7E7}
+
 
 % Boolean value to switch section color highlighting
 \newbool{acvSectionColorHighlight}
@@ -156,15 +173,14 @@
   \ifbool{acvSectionColorHighlight}{{\color{awesome}#1#2#3}}{#1#2#3}%
 }
 
-
 %-------------------------------------------------------------------------------
 %                Configuration for fonts
 %-------------------------------------------------------------------------------
 % Set the FontAwesome font to be up-to-date.
-\newfontfamily\FA[Path=\@fontdir]{FontAwesome}
+\newfontfamily\FA{FontAwesome}
+
 % Set font for header (default is Roboto)
 \newfontfamily\headerfont[
-  Path=\@fontdir,
   UprightFont=*-Regular,
   ItalicFont=*-Italic,
   BoldFont=*-Bold,
@@ -172,7 +188,6 @@
 ]{Roboto}
 
 \newfontfamily\headerfontlight[
-  Path=\@fontdir,
   UprightFont=*-Thin,
   ItalicFont=*-ThinItalic,
   BoldFont=*-Medium,
@@ -200,7 +215,7 @@
 \newcommand*{\paragraphstyle}{\fontsize{9pt}{1em}\bodyfontlight\upshape\color{text}}
 
 % For elements of entry
-\newcommand*{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
+\newcommand{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
 \newcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\scshape\color{graytext} #1}}
 \newcommand*{\entrydatestyle}[1]{{\fontsize{8pt}{1em}\bodyfontlight\slshape\color{graytext} #1}}
 \newcommand*{\entrylocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
@@ -233,6 +248,45 @@
 \newcommand*{\letternamestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
 \newcommand*{\letterenclosurestyle}[1]{{\fontsize{10pt}{1em}\bodyfontlight\slshape\color{lighttext} #1}}
 
+% For the bibliography text
+\renewcommand*{\bibfont}{\fontsize{9pt}{1em}\bodyfontlight\color{text}}
+
+% Strut -30% to +100% baseline height (default for \strut); leave for now
+%\newcommand*{\skillstrut}{\rule[-.30\baselineskip]{0in}{\baselineskip}}
+
+% Framed box for skills
+%\newcommand*{\mybox}[1]{\item \efbox[backgroundcolor=sidecolor, linecolor=black, linewidth=.5pt, margin=3pt]{\strut #1}}
+% Toggle fancyboxes vs efbox colored boxes
+%\newcommand*{\mybox}[1]{\item \Ovalbox{\strut #1}}
+\newcommand*{\mybox}[1]{\item \ovalbox{\strut #1}}
+
+% Define commands for star levels 
+\newcommand*{\zerostarsO}{\faStarO\faStarO\faStarO\faStarO\faStarO}
+\newcommand*{\halfstarO}{\faStarHalfO\faStarO\faStarO\faStarO\faStarO}
+\newcommand*{\onestarO}{\faStar\faStarO\faStarO\faStarO\faStarO}
+\newcommand*{\onehalfstarsO}{\faStar\faStarHalfO\faStarO\faStarO\faStarO}
+\newcommand*{\twostarsO}{\faStar\faStar\faStarO\faStarO\faStarO}
+\newcommand*{\twohalfstarsO}{\faStar\faStar\faStarHalfO\faStarO\faStarO}
+\newcommand*{\threestarsO}{\faStar\faStar\faStar\faStarO\faStarO}
+\newcommand*{\threehalfstarsO}{\faStar\faStar\faStar\faStarHalfO\faStarO}
+\newcommand*{\fourstarsO}{\faStar\faStar\faStar\faStar\faStarO}
+\newcommand*{\fourhalfstarsO}{\faStar\faStar\faStar\faStar\faStarHalfO}
+\newcommand*{\fivestarsO}{\faStar\faStar\faStar\faStar\faStar}
+
+\newcommand*{\zerostars}{}
+\newcommand*{\halfstar}{\faStarHalf}
+\newcommand*{\onestar}{\faStar}
+\newcommand*{\onehalfstars}{\faStar\faStarHalf}
+\newcommand*{\twostars}{\faStar\faStar}
+\newcommand*{\twohalfstars}{\faStar\faStar\faStarHalf}
+\newcommand*{\threestars}{\faStar\faStar\faStar}
+\newcommand*{\threehalfstars}{\faStar\faStar\faStar\faStarHalf}
+\newcommand*{\fourstars}{\faStar\faStar\faStar\faStar}
+\newcommand*{\fourhalfstars}{\faStar\faStar\faStar\faStar\faStarHalf}
+\newcommand*{\fivestars}{\faStar\faStar\faStar\faStar\faStar}
+
+% Define command for eliminating vertical space before and after itemized lists
+\newcommand{\tablistcommand}{\leavevmode\par\vspace{-1.25\baselineskip}}
 
 %-------------------------------------------------------------------------------
 %                Commands for personal information
@@ -259,6 +313,7 @@
 % Usage: \firstname{<firstname>}
 % Usage: \lastname{<lastname>}
 % Usage: \familyname{<familyname>}
+
 \newcommand*{\name}[2]{\def\@firstname{#1}\def\@lastname{#2}}
 \newcommand*{\firstname}[1]{\def\@firstname{#1}}
 \newcommand*{\lastname}[1]{\def\@lastname{#1}}
@@ -314,6 +369,10 @@
 % Usage: \reddit{<reddit account>}
 \newcommand*{\reddit}[1]{\def\@reddit{#1}}
 
+% Defines writer's quora (optional)
+% Usage: \quora{<quora-nick>}
+\newcommand*{\quora}[1]{\def\@quora{#1}}
+
 % Defines writer's xing (optional)
 % Usage: \xing{<xing name>}
 \newcommand*{\xing}[1]{\def\@xing{#1}}
@@ -326,6 +385,13 @@
 % Defines writer's quote (optional)
 % Usage: \quote{<quote>}
 \renewcommand*{\quote}[1]{\def\@quote{#1}}
+
+% Defines qrcode contents  (optional)
+% Usage: \qrtext{<text>}
+\newcommand*{\qrtext}[1]{\def\@qrtext{#1}}
+
+% Defines signature file (optional)
+\newcommand*{\signature}[1]{\def\@signature{#1}}
 
 % Defines recipient's information (cover letter only)
 % Usage: \recipient{<recipient name>}{<recipient address>}
@@ -360,24 +426,24 @@
   \def\@letterenclosure{#2}
 }
 
-
 %-------------------------------------------------------------------------------
 %                Commands for extra
 %-------------------------------------------------------------------------------
 %% Define helper macros a user can change easily
 % Header
 \newcommand{\acvHeaderNameDelim}{\space}
-\newcommand{\acvHeaderAfterNameSkip}{.4mm}
-\newcommand{\acvHeaderAfterPositionSkip}{.4mm}
-\newcommand{\acvHeaderAfterAddressSkip}{-.5mm}
+\newcommand{\acvHeaderAfterNameSkip}{2pt}
+\newcommand{\acvHeaderAfterPositionSkip}{0pt}
+\newcommand{\acvHeaderAfterAddressSkip}{-2pt}
 \newcommand{\acvHeaderIconSep}{\space}
 \newcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
-\newcommand{\acvHeaderAfterSocialSkip}{6mm}
-\newcommand{\acvHeaderAfterQuoteSkip}{5mm}
+\newcommand{\acvHeaderAfterSocialSkip}{12pt}
+\newcommand{\acvHeaderAfterQuoteSkip}{12pt}
+\newcommand{\acvHeaderAfterQRCodeSkip}{-18pt}
 
 % Others
-\newcommand{\acvSectionTopSkip}{3mm}
-\newcommand{\acvSectionContentTopSkip}{2.5mm}
+\newcommand{\acvSectionTopSkip}{8pt}
+\newcommand{\acvSectionContentTopSkip}{7pt}
 
 
 %-------------------------------------------------------------------------------
@@ -392,8 +458,8 @@
 \def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
 
 % Use to execute conditional statements by checking empty string
-\newcommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}}
-
+% ifempty checks if first bracket is empty. If yes, use second bracket, else use third.
+\newcommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}} 
 
 %-------------------------------------------------------------------------------
 %                Commands for elements of CV structure
@@ -439,14 +505,14 @@
       \ifthenelse{\isundefined{\@mobile}}%
         {}%
         {%
-          \faMobile\acvHeaderIconSep\@mobile%
+          \faPhone\acvHeaderIconSep\@mobile%
           \setbool{isstart}{false}%
         }%
       \ifthenelse{\isundefined{\@email}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{mailto:\@email}{\faEnvelope\acvHeaderIconSep\@email}%
+          \href{mailto:\@email}{{\rlap{\color{manila-file-folder}\faEnvelope}{\faEnvelopeO\acvHeaderIconSep\@email}}}%
         }%
       \ifthenelse{\isundefined{\@homepage}}%
         {}%
@@ -458,13 +524,13 @@
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://github.com/\@github}{\faGithubSquare\acvHeaderIconSep\@github}%
+          \href{https://github.com/\@github}{\faGithub\acvHeaderIconSep\@github}%
         }%
       \ifthenelse{\isundefined{\@gitlab}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://gitlab.com/\@gitlab}{\faGitlab\acvHeaderIconSep\@gitlab}%
+          \href{https://gitlab.com/\@gitlab}{{\color{github-blackish}\faGitlab}\acvHeaderIconSep\@gitlab}%
         }%
       \ifthenelse{\isundefined{\@stackoverflowid}}%
         {}%
@@ -476,7 +542,7 @@
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedinSquare\acvHeaderIconSep\@linkedin}%
+          \href{https://www.linkedin.com/in/\@linkedin}{{\color{linkedin-blue}\faLinkedinSquare}\acvHeaderIconSep\@linkedin}%
         }%
       \ifthenelse{\isundefined{\@twitter}}%
         {}%
@@ -488,13 +554,19 @@
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \faSkype\acvHeaderIconSep\@skype%
+          {\color{skype-blue}\faSkype}\acvHeaderIconSep\@skype%
         }%
       \ifthenelse{\isundefined{\@reddit}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
           \href{https://www.reddit.com/user/\@reddit}{\faReddit\acvHeaderIconSep\@reddit}%
+        }%
+      \ifthenelse{\isundefined{\@quora}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://www.quora.com/profile/\@quora}{{\color{quora-red}\faQuora}\acvHeaderIconSep\@quora}%
         }%
       \ifthenelse{\isundefined{\@xing}}%
         {}%
@@ -508,10 +580,17 @@
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
           \@extrainfo%
         }%
-    } \\[\acvHeaderAfterSocialSkip]%
+    }\\[\acvHeaderAfterSocialSkip]%
+
     \ifthenelse{\isundefined{\@quote}}%
-      {}%
-      {\headerquotestyle{\@quote\\}\vspace{\acvHeaderAfterQuoteSkip}}%
+		{}
+		{\ifthenelse{\isundefined{\@qrtext}}%
+			{\headerquotestyle{\@quote}\vspace{\acvHeaderAfterQuoteSkip}}%
+			% From cover letter cls file, switch for the above line of compiling a cover letter, else fix properly
+%			{\headerquotestyle{\hspace{0.54\textwidth}\@quote}\hfill\fbox{\qrcode[height=32pt]{\@qrtext}}\vspace{\acvHeaderAfterQRCodeSkip}}
+			{\headerquotestyle{\@quote}\hfill\fbox{\qrcode[height=32pt]{\@qrtext}}\vspace{\acvHeaderAfterQRCodeSkip}}
+		}
+
   \end{minipage}%
   \begin{minipage}[c]{\headerphotowidth}%
     \ifthenelse{\equal{\@photoalign}{right}}{\raggedleft\drawphoto}{}
@@ -545,15 +624,6 @@
   \phantomsection
 }
 
-% Define a paragraph for CV
-\newenvironment{cvparagraph}{%
-  \vspace{\acvSectionContentTopSkip}
-  \vspace{-3mm}
-  \paragraphstyle
-}{%
-  \par
-  \vspace{2mm}
-}
 
 % Define an environment for cventry
 \newenvironment{cventries}{%
@@ -562,18 +632,15 @@
 }{%
   \end{center}
 }
+
 % Define an entry of cv information
 % Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
-\newcommand*{\cventry}[5]{%
-  \vspace{-2.0mm}
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \ifempty{#2#3}
-      {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-      \entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
+\newcommand{\cventry}[5]{\vspace{-2.0mm}\setlength\tabcolsep{0pt}\setlength{\extrarowheight}{0pt}
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+		\ifempty{#2#3}
+			{\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
+			{\entrytitlestyle{#2} & \entrylocationstyle{#3} \\ \entrypositionstyle{#1} & \entrydatestyle{#4}}
+		\ifempty{#5}{}{\\\multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}} 
   \end{tabular*}%
 }
 
@@ -583,6 +650,7 @@
 }{%
   \end{center}
 }
+
 % Define a subentry of cv information
 % Usage: \cvsubentry{<position>}{<title>}{<date>}{<description>}
 \newcommand*{\cvsubentry}[4]{%
@@ -601,6 +669,16 @@
   \end{tabular*}
 }
 
+% Define a paragraph for CV
+\newenvironment{cvparagraph}{%
+  \vspace{\acvSectionContentTopSkip}
+  \vspace{-3mm}
+  \paragraphstyle
+}{%
+  \par
+  \vspace{2mm}
+}
+
 % Define an environment for cvhonor
 \newenvironment{cvhonors}{%
   \vspace{\acvSectionContentTopSkip}
@@ -608,48 +686,74 @@
   \begin{center}
     \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
+    \begin{tabular*}{\textwidth}{C{1.5cm} L{2.5cm} L{\textwidth - 8.0cm} R{4.0cm}}
 }{%
     \end{tabular*}
   \end{center}
 }
+
 % Define a line of cv information(honor, award or something else)
 % Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
 \newcommand*{\cvhonor}[4]{%
-  \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+  \honordatestyle{#4} & \honorpositionstyle{#1} & \honortitlestyle{#2} & \honorlocationstyle{#3} \\
 }
 
-% Define an environment for cvskill
+% Define an environment for cvskills
 \newenvironment{cvskills}{%
+	\vspace{\acvSectionContentTopSkip}
+	\vspace{-2.0mm}
+	\begin{center}
+		\setlength{\extrarowheight}{0pt}
+			\begin{tabular*}{\textwidth}%
+				{@{\extracolsep{\fill}}>{\raggedleft\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}p{0.83\textwidth}} % Left aligned boxes
+%				{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.83\textwidth}} % Justified boxes (you think you want this, but you don't want this)
+}{%
+		\end{tabular*}
+	\end{center}
+}
+
+% Define a line of cv information(skill)
+% Usage: \cvskill{<type>}{<skillset>}
+\newcommand*{\cvskill}[2]{\skilltypestyle{#1} & \skillsetstyle{\begin{itemize*}[label={}]#2\end{itemize*}}\\}
+
+% Define an environment for cvlangs
+\newenvironment{cvlangs}{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-2.0mm}
+  \vspace{-2mm}
   \begin{center}
-    \setlength\tabcolsep{1ex}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth * \real{0.9}}}
+    \begin{tabular*}{\textwidth}{R{0.26\textwidth}L{0.20\textwidth}L{0.30\textwidth}}
+}{%
+    \end{tabular*}
+  \end{center}
+  \vspace{-2mm}
+}
+
+% Define a line of cv information(honor, award or something else)
+% Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
+\newcommand{\cvlang}[3]{\skilltypestyle{#1} & \skillsetstyle{%
+	\begin{itemize}[leftmargin=1em,noitemsep,topsep=0pt, before=\tablistcommand, after=\tablistcommand]
+		#2
+	\end{itemize}} & \small\color{darktext}{#3} \\}
+
+% Define an environment for cvitems
+\newenvironment{cvitems}{%
+  \vspace{\acvSectionContentTopSkip}
+  \vspace{-2mm}
+  \begin{center}
+    \setlength{\extrarowheight}{0pt}
+    \begin{tabular*}{\textwidth}{R{0.15\textwidth}L{0.85\textwidth}}
 }{%
     \end{tabular*}
   \end{center}
 }
-% Define a line of cv information(skill)
-% Usage: \cvskill{<type>}{<skillset>}
-\newcommand*{\cvskill}[2]{%
-	\skilltypestyle{#1} & \skillsetstyle{#2} \\
-}
 
-% Define an environment for cvitems(for cventry)
-\newenvironment{cvitems}{%
-  \vspace{-4.0mm}
-  \begin{justify}
-  \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
-    \setlength{\parskip}{0pt}
-    \renewcommand{\labelitemi}{\bullet}
-}{%
-  \end{itemize}
-  \end{justify}
-  \vspace{-4.0mm}
-}
-
+% Define a line of cv information(honor, award or something else)
+% Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
+\newcommand{\cvitem}[2]{\skilltypestyle{#1} & \skillsetstyle{%
+	\begin{itemize}[leftmargin=1em,noitemsep,topsep=0pt, before=\tablistcommand, after=\tablistcommand]
+		#2
+	\end{itemize}} \\}
 
 %-------------------------------------------------------------------------------
 %                Commands for elements of Cover Letter
@@ -693,11 +797,25 @@
 \newcommand*{\makeletterclosing}{%
   \vspace{3.4mm}
   \lettertextstyle{\@letterclosing} \\\\
-  \letternamestyle{\@firstname\ \@lastname}
+  \letternamestyle{\@firstname\ \@lastname} \\\\
+  \@signature \\
   \ifthenelse{\isundefined{\@letterenclosure}}
     {\\}
     {%
-      \\\\\\
+%      \\\\\\ % This is the space where the signature goes
       \letterenclosurestyle{\@letterenclname: \@letterenclosure} \\
     }
 }
+
+
+% CUSTOM COMMANDS
+
+% For \textscale, which I prefer over \sc (small caps).
+% See the \acr command definition below.
+\usepackage{relsize}
+%\usepackage[protrusion]{microtype}
+
+% acr command, to quickly mark acronyms for special formatting
+\newcommand*\acr[1]{\textscale{.85}{#1}}
+
+% End of awesome-cv.cls

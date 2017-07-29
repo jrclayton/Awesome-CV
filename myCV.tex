@@ -1,0 +1,83 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for Cover Letter
+
+%%% CONFIGURATION %%%
+\documentclass[12pt, letterpaper]{awesome-cv}
+
+% Configure page margins with geometry
+\geometry{left=48pt, top=18pt, right=36pt, bottom=24pt, footskip=12pt}
+
+% bibtex bibliography database file (exported from Mendeley as .bib in my case)
+\addbibresource{cv-bib.bib}
+
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-skyblue}
+
+% Uncomment if you would like to specify your own color
+% \definecolor{awesome}{HTML}{CA63A8}
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+%%%	PERSONAL INFORMATION %%%
+% Available options: circle|rectangle,edge/noedge,left/right
+\photo[circle,noedge,left]{./img/profile.png}
+\name{John~R}{Clayton}
+\position{Scientist{\enskip\cdotp\enskip}Vector-borne Diseases}
+\address{2525 North Filbert Road, Exeter, California 93221 USA}
+\mobile{+1 (559) 623-2756}
+\email{jrclayton@yahoo.com}
+\skype{jrclayton}
+\linkedin{johnrandyclayton}
+\github{jrclayton}
+\quora{John-Clayton-6}
+\skype{jrclayton}
+%\homepage{}
+%\twitter{}
+%\reddit{}
+%\extrainfo{}
+
+\quote{``Nothing in biology makes sense except in the light of evolution''}
+%\quote{``Time flies like an arrow. Fruit flies like a banana.''}
+
+% QR Code Text
+\qrtext{https://raw.githubusercontent.com/jrclayton/my-awesome-cv/master/my-awesome-cv.pdf}
+
+%%% BEGIN CV %%%
+\begin{document}
+
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader[L]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+%\makecvfooter
+%  {Curriculum Vitae}
+%  {John R Clayton}
+%  {\today}
+
+% CV/RESUME CONTENT
+\input{cv/summary.tex}
+\input{cv/education.tex}
+\input{cv/workexp.tex}
+\input{cv/langs.tex}
+\input{cv/skills.tex}
+\input{cv/teaching.tex}
+\input{cv/honors.tex}
+\input{cv/labtraining.tex}
+\input{cv/extra.tex}
+\input{cv/old.tex}
+\input{cv/interests.tex}
+\input{cv/bibliography.tex}
+
+\end{document}
+% End of file my-awesome-cv.tex
