@@ -1,0 +1,15 @@
+[0] Config.pm:354> INFO - This is Biber 2.7
+[0] Config.pm:357> INFO - Logfile is 'myCV.blg'
+[57] biber-darwin:303> INFO - === Fri Jul 28, 2017, 23:55:31
+[90] Biber.pm:359> INFO - Reading 'myCV.bcf'
+[278] Biber.pm:832> INFO - Using all citekeys in bib section 0
+[305] Biber.pm:3670> INFO - Processing section 0
+[330] Biber.pm:3840> INFO - Looking for bibtex format file 'cv-bib.bib' for section 0
+[345] bibtex.pm:1435> INFO - Decoding LaTeX character macros into UTF-8
+[360] bibtex.pm:1292> INFO - Found BibTeX data source 'cv-bib.bib'
+[690] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[690] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[690] Biber.pm:3499> INFO - Sorting list 'ydnt/global/' of type 'entry' with scheme 'ydnt' and locale 'en-US'
+[690] Biber.pm:3505> INFO - No sort tailoring available for locale 'en-US'
+[726] bbl.pm:608> INFO - Writing 'myCV.bbl' with encoding 'UTF-8'
+[732] bbl.pm:712> INFO - Output to myCV.bbl
