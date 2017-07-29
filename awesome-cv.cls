@@ -586,8 +586,6 @@
 		{}
 		{\ifthenelse{\isundefined{\@qrtext}}%
 			{\headerquotestyle{\@quote}\vspace{\acvHeaderAfterQuoteSkip}}%
-			% From cover letter cls file, switch for the above line of compiling a cover letter, else fix properly
-%			{\headerquotestyle{\hspace{0.54\textwidth}\@quote}\hfill\fbox{\qrcode[height=32pt]{\@qrtext}}\vspace{\acvHeaderAfterQRCodeSkip}}
 			{\headerquotestyle{\@quote}\hfill\fbox{\qrcode[height=32pt]{\@qrtext}}\vspace{\acvHeaderAfterQRCodeSkip}}
 		}
 
