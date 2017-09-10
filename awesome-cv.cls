@@ -96,6 +96,9 @@
 % For making oval boxes around skills (alternate to above)
 \usepackage{fancybox}
 
+% For micro-typographic refinement
+\usepackage[protrusion]{microtype}
+
 %-------------------------------------------------------------------------------
 %                Configuration for directory locations
 %-------------------------------------------------------------------------------
@@ -586,7 +589,7 @@
 		{}
 		{\ifthenelse{\isundefined{\@qrtext}}%
 			{\headerquotestyle{\@quote}\vspace{\acvHeaderAfterQuoteSkip}}%
-			{\headerquotestyle{\@quote}\hfill\fbox{\qrcode[height=32pt]{\@qrtext}}\vspace{\acvHeaderAfterQRCodeSkip}}
+			{\headerquotestyle{\hspace{0.54\textwidth}\@quote}\hfill\fbox{\qrcode[height=32pt]{\@qrtext}}\vspace{\acvHeaderAfterQRCodeSkip}}
 		}
 
   \end{minipage}%
@@ -779,14 +782,14 @@
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \recipienttitlestyle{\@recipientname} & \letterdatestyle{\@letterdate}
+      	\recipienttitlestyle{\@recipientname} & \letterdatestyle{\@letterdate}
   \end{tabular*}
   \begin{singlespace}
     \recipientaddressstyle{\@recipientaddress} \\\\
   \end{singlespace}
   \ifthenelse{\isundefined{\@lettertitle}}
     {}
-    {\lettertitlestyle{\@lettertitle} \\}
+    {\lettertitlestyle{\@lettertitle} \\~\\}
   \lettertextstyle{\@letteropening}
 }
 
@@ -800,7 +803,7 @@
   \ifthenelse{\isundefined{\@letterenclosure}}
     {\\}
     {%
-%      \\\\\\ % This is the space where the signature goes
+%      \\\\\\
       \letterenclosurestyle{\@letterenclname: \@letterenclosure} \\
     }
 }
@@ -811,7 +814,7 @@
 % For \textscale, which I prefer over \sc (small caps).
 % See the \acr command definition below.
 \usepackage{relsize}
-%\usepackage[protrusion]{microtype}
+\usepackage[protrusion]{microtype}
 
 % acr command, to quickly mark acronyms for special formatting
 \newcommand*\acr[1]{\textscale{.85}{#1}}

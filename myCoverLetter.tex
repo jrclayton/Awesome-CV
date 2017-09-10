@@ -3,16 +3,16 @@
 % Awesome CV LaTeX Template for Cover Letter
 
 %%% CONFIGURATION %%%
-\documentclass[10pt, letterpaper]{awesome-cv}
+\documentclass[letterpaper]{awesome-cv}
 
 % Configure page margins with geometry
 \geometry{left=48pt, top=24pt, right=36pt, bottom=24pt, footskip=12pt}
 
-% Filler content for body
-\usepackage[pangram]{blindtext}
-
 % bibtex bibliography database file (exported from Mendeley as .bib in my case)
 \addbibresource{cv-bib.bib}
+
+% Package for template
+\usepackage[pangram]{blindtext}
 
 % Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
 %                 awesome-nephritis, awesome-concrete, awesome-darknight
@@ -37,24 +37,24 @@
 %\photo[circle,noedge,left]{./img/profile.png}
 \name{John~R}{Clayton}
 \position{Scientist{\enskip\cdotp\enskip}Vector-borne Diseases}
-\address{ADDRESS REDACTED}
-\mobile{+1 (559) 555-1212}
-\email{REDACTED}
-\skype{REDACTED}
-\linkedin{REDACTED}
-\github{REDACTED}
-\quora{REDACTED}
-\skype{REDACTED}
+\address{2525 North Filbert Road, Exeter, California 93221 USA}
+\mobile{+1 (559) 623-2756}
+\email{jrclayton@yahoo.com}
+\skype{jrclayton}
+\linkedin{johnrandyclayton}
+\github{jrclayton}
+\quora{John-Clayton-6}
+\skype{jrclayton}
 %\homepage{}
 %\twitter{}
 %\reddit{}
 %\extrainfo{}
 
 %\quote{``Nothing in biology makes sense except in the light of evolution''}
-\quote{\hspace{0.54\textwidth}{``Time flies like an arrow. Fruit flies like a banana.''}}
+\quote{``Time flies like an arrow. Fruit flies like a banana.''}
 
 % QR Code Text
-\qrtext{https://raw.githubusercontent.com/jrclayton/Awesome-CV/master/myCoverLetter.pdf}
+\qrtext{https://www.google.com}
 
 % Define the location of the signature file
 \signature{\includegraphics[width=2.0in]{./img/sig.png}}
@@ -64,16 +64,16 @@
 % The company being applied to
 \recipient
   {Recipient}
-  {Recipient Title\\Department\\Institution\\Address\\City, State Zip USA}
+  {Title\\Institution\\Address\\City, State Zip Country}
 
 % The date on the letter, default is the date of compilation
 \letterdate{\today}
 
 % The title of the letter
-\lettertitle{Re: Position of Interest}
+\lettertitle{Re: Subject Line}
 
 % How the letter is opened
-\letteropening{Dear Sir or Madam:}
+\letteropening{Dear Recipient:}
 
 % How the letter is closed
 \letterclosing{Sincerely,}
@@ -100,6 +100,7 @@
 \makelettertitle
 
 %%%%%%% LETTER CONTENT %%%%%%%
+%\input{body}
 \Blindtext[3][1] % 3 paragraphs, each 1 pangram
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
